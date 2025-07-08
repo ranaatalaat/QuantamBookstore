@@ -22,7 +22,7 @@ public class BOOKSTORETEST {
         try {
             double amount = bookStore.buyBook("ISBN003", 1, "customer@email.com", "123 Main St");
             System.out.println("EBook purchase successful: EGP" + String.format("%.2f", amount));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             System.out.println("EBook purchase failed: " + e.getMessage());
         }
     }
@@ -39,7 +39,7 @@ public class BOOKSTORETEST {
             int newStock = ((PaperBook) book).getStock();
             System.out.println("Stock after purchase: " + newStock);
             System.out.println("Paper book purchase successful: EGP" + String.format("%.2f", amount));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             System.out.println("Paper book purchase failed: " + e.getMessage());
         }
     }
@@ -54,7 +54,7 @@ public class BOOKSTORETEST {
             
             double amount = bookStore.buyBook("ISBN002", availableStock + 1, "customer@email.com", "123 Main St");
             System.out.println("Should have failed but didn't: EGP" + String.format("%.2f", amount));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             System.out.println("Expected error for insufficient stock: " + e.getMessage());
         }
     }
@@ -64,7 +64,7 @@ public class BOOKSTORETEST {
         try {
             double amount = bookStore.buyBook("ISBN005", 1, "customer@email.com", "123 Main St");
             System.out.println("Should have failed but didn't: EGP" + String.format("%.2f", amount));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             System.out.println("Expected error for showcase book: " + e.getMessage());
         }
     }
@@ -74,7 +74,7 @@ public class BOOKSTORETEST {
         try {
             double amount = bookStore.buyBook("ISBN999", 1, "customer@email.com", "123 Main St");
             System.out.println("Should have failed but didn't: EGP" + String.format("%.2f", amount));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             System.out.println("Expected error for non-existent book: " + e.getMessage());
         }
     }
@@ -94,7 +94,7 @@ public class BOOKSTORETEST {
             } else {
                 System.out.println("Book still exists after removal");
             }
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             System.out.println("Error removing book: " + e.getMessage());
         }
     }
@@ -104,7 +104,7 @@ public class BOOKSTORETEST {
         try {
             bookStore.removeBook("ISBN888");
             System.out.println("Should have failed but didn't");
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             System.out.println("Expected error for non-existent book: " + e.getMessage());
         }
     }
@@ -123,7 +123,7 @@ public class BOOKSTORETEST {
                     System.out.println("  - " + book.getTitle() + " (Year: " + book.getYearOfPublication() + ")");
                 }
             }
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             System.out.println("✗ Error removing outdated books: " + e.getMessage());
         }
     }
@@ -133,7 +133,7 @@ public class BOOKSTORETEST {
         try {
             double amount = bookStore.buyBook("ISBN003", 0, "customer@email.com", "123 Main St");
             System.out.println("Should have failed but didn't: EGP" + String.format("%.2f", amount));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             System.out.println("Expected error for invalid quantity: " + e.getMessage());
         }
     }
@@ -151,7 +151,6 @@ public class BOOKSTORETEST {
         testInvalidQuantity();
         System.out.println("\n=== All Tests Completed ===");
     }
-    
     public static void main(String[] args) {
         BOOKSTORETEST test = new BOOKSTORETEST();
         test.runAllTests();

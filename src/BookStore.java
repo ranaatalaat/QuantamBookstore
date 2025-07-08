@@ -12,10 +12,10 @@ public class BookStore {
         System.out.println("Added book: " + book.getIsbn() + " - " + book.getTitle());
     }
     
-    public void removeBook(String isbn) {
+    public void removeBook(String isbn) throws BookNotFound {
         Book book = inventory.getBook(isbn);
         if (book == null) {
-            throw new RuntimeException("Book not found");
+            throw new BookNotFound("Book not found");
         }
         inventory.removeBook(isbn);
         System.out.println("Quantum book store: ");
@@ -34,16 +34,16 @@ public class BookStore {
         return outdatedBooks;
     }
     
-    public double buyBook(String isbn, int quantity, String email, String address) {
+    public double buyBook(String isbn, int quantity, String email, String address) throws BookNotFound, BookOutOfStock , ShowCaseBookNotForSale {
         Book book = inventory.getBook(isbn);
         if (book == null) {
-            throw new RuntimeException("Book not found");
+            throw new BookNotFound("Book not found");
         }
         if (book instanceof ShowcaseBook) {
-            throw new RuntimeException("Showcase books are not for sale");
+            throw new ShowCaseBookNotForSale("Showcase books are not for sale");
         }
         if (quantity <= 0) {
-            throw new RuntimeException("Invalid quantity");
+            throw new BookOutOfStock("Invalid quantity");
         }
         String title = book.getTitle();
         double totalAmount = book.getPrice() * quantity;
